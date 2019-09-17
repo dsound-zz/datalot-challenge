@@ -32,7 +32,6 @@
 
 .header-text {  
   flex-basis: 30em;
-  border: red 1px solid;
 }
 
 
@@ -43,7 +42,6 @@
   background: rgb(255, 255, 255);
   border-radius: 3%;
   flex-basis: 18em;   
-  border: red solid 1px;
 }
 
 .card .btn {
@@ -85,6 +83,9 @@ li:before {
   content: "✔️";
 }
 
+.modal {
+  background: blue; 
+}
 
 @media only screen and (min-width: 200px) and (max-width: 840px) {
   
