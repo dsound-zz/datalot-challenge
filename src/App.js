@@ -1,6 +1,10 @@
 import React from 'react';
 import carimg from './images/cars.jpg'
+import { FiPhoneCall } from "react-icons/fi";
 import './App.css';
+
+
+
 
 class App extends React.Component {
   state = {
@@ -21,75 +25,69 @@ class App extends React.Component {
     e.preventDefault();
     console.log(zipcode, currentlyInsured, ageRange);
     if (currentlyInsured === "no") {
-      this.setState({ showModal: !this.state.showModal, modalMessage: "Sorry, no rates available" });
-      return;
+      this.setState({
+        showModal: this.toggle,
+        modalMessage: "Sorry, no rates available"
+      });
     }
     if (ageRange === "over") {
       this.setState({
-        showModal: this.state.showModal,
+        showModal: this.toggle,
         modalMessage: "Yes, we have great rates available!"
       });
-
     } else if (ageRange === "under") {
-      this.setState({ showModal: this.state.showModal, modalMessage: "Coming soon!" })
+      this.setState({
+        showModal: this.toggle,
+        modalMessage: "Coming soon!"
+      });
     }
     this.setState({ zipcode: "", currentlyInsured: "", ageRange: "" });
   };
 
   toggle = () => {
-    this.setState(({ showModal }) => ({ showModal: !showModal }));
-  }
+    if (!this.state.showModal) {
+      // attach/remove event handler
+      document.addEventListener("click", this.toggle, false);
+    } else {
+      document.removeEventListener("click", this.toggle, false);
+    }
+    this.setState(prevState => {
+      return { showModal: !prevState.showModal };
+    });
+  };
 
-   ModalMessage = () => (
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
-                Modal title
-              </h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">...</div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" class="btn btn-primary">
-                Save changes
-              </button>
-            </div>
-          </div>
+  ModalMessage = () => (
+    <div
+      id="myModal"
+      className="modal"
+    >
+      {/* <!-- Modal content --> */}
+      <div className="modal-content">
+        <div className="modal-header">
+      </div>
+        <div className="modal-body">
+        
+          <h3 style={{ textAlign: "center" }}>{this.state.modalMessage}</h3>
         </div>
-  )
-
+        <div className="modal-footer">
+        </div>
+      </div>
+    </div>
+  );
 
   render() {
-    console.log(this.state);
     const { zipcode, currentlyInsured, ageRange } = this.state;
     return (
       <>
         <div className="container-1">
           <div className="jumbotron">
             <div className="header-text">
-              <h1 style={{ color: "rgb(255, 255, 255)" }}>
+              <h1>
                 Lower Your Auto
                 <br />
                 Insurance Rates
               </h1>
-              <h5 style={{ color: "rgb(255,255,102)" }}>
-                Compare Rates to Save On Your Policy Today!
-              </h5>
+              <h5>Compare Rates to Save On Your Policy Today!</h5>
             </div>
 
             {/* Create Card  */}
@@ -101,7 +99,7 @@ class App extends React.Component {
                   tag="h4"
                   style={{ fontStye: "strong" }}
                 >
-                  Cheap Auto Coverage
+                  <strong>Cheap Auto Coverage</strong>
                 </div>
                 <div className="card-title">
                   Complete just <strong>3 simple steps</strong> to
@@ -117,8 +115,9 @@ class App extends React.Component {
                     this.handleSubmit(zipcode, currentlyInsured, ageRange, e)
                   }
                 >
-                  <div className="form-group">
+                  <div className="form-group textarea">
                     <input
+                      className="form-control textarea"
                       onChange={this.handleChange}
                       value={this.state.zipcode}
                       type="text"
@@ -129,7 +128,7 @@ class App extends React.Component {
                     />
 
                     <select
-                      className="form-control"
+                      className="form-control textarea"
                       onChange={this.handleChange}
                       value={this.state.currentlyInsured}
                       name="currentlyInsured"
@@ -145,7 +144,7 @@ class App extends React.Component {
                     </select>
 
                     <select
-                      className="form-control"
+                      className="form-control textarea"
                       onChange={this.handleChange}
                       value={this.state.ageRange}
                       type="select"
@@ -165,14 +164,25 @@ class App extends React.Component {
                   </div>
 
                   <button
-                    className="btn btn-danger"
-                    onClick={this.state.toggle}
                     type="submit"
-                    size="lg"
+                    className="btn btn-danger btn-lg"
+                    data-toggle="modal"
+                    data-target="#myModal"
+                    onClick={this.toggle}
                   >
                     <h5>Find Lower Rates</h5>
                   </button>
-    
+                  <div>{this.state.showModal && <this.ModalMessage />}</div>
+                  <button
+                    id="callAgent"
+                    style={{ marginTop: "20px"}}
+                    type="button"
+                    className="btn btn-info btn-lg"
+                    onClick={this.call}
+                  >
+                    <span style={{ marginRight: "25px"}}><FiPhoneCall /></span>
+                    <span style={{ marginLeft: "5px", color: "white" }}><a href="tel:555-555-5555">Talk to a Live Agent</a></span>
+                  </button>
                   <p className="secure-text">
                     <small>Your information is safe and secure.</small>
                   </p>
@@ -183,9 +193,7 @@ class App extends React.Component {
             </div>
           </div>
         </div>
-
         {/* Body of page  */}
-
         <div className="container-2">
           <div className="row">
             <div className="col-6">
@@ -209,9 +217,6 @@ class App extends React.Component {
             </div>
           </div>
         </div>
-
-        {/* Create Modal  */}
-      
       </>
     );
   }

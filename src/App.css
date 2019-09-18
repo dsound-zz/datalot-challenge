@@ -13,8 +13,8 @@
 }
 
 .container-1 {
-  max-width: 100%; 
-  max-height: auto; 
+  width: 100%;
+  height: auto;
 }
 
 .container-1 .jumbotron {
@@ -22,6 +22,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  width: 100vw;
+  height: auto;
   color: rgb(0, 0, 0);
   background-color: white;
   background: url("images/bg.jpg") no-repeat;
@@ -29,51 +31,71 @@
   background-size: cover;
 }
 
-
-.header-text {  
-  flex-basis: 30em;
+.header-text {
+  flex-basis: 34em;
+  text-shadow: 3px 2px #000;
 }
 
+.header-text h1 {
+  color: white;
+  text-shadow: 2px 2px #000;
+  font-weight: 900;
+  font-size: 3em;
+}
+
+.header-text h5 {
+  color: yellow;
+  text-shadow: 1px 2px #000;
+  font-weight: 800;
+  font-size: 1.4em;
+}
 
 .card {
   display: flex;
-  justify-content: center;  
-  align-items: center; 
+  justify-content: center;
+  align-items: center;
   background: rgb(255, 255, 255);
   border-radius: 3%;
-  flex-basis: 18em;   
+  flex-basis: 18em;
 }
 
 .card .btn {
-  text-align: center; 
-  border-radius: 0;  
+  text-align: center;
+  border-radius: 0;
 }
 
-
 p.secure-text {
-  text-align: center; 
+  text-align: center;
 }
 
 .form {
   display: flex;
-  flex-direction: column; 
-  justify-content: center; 
+  flex-direction: column;
+  justify-content: center;
 }
 
-.header-text {
-  text-shadow: 3px 2px #000;
-
+input[type="text"],
+.txtarea {
+  margin-bottom: 20px;
 }
 
-.header-text h5 {
-  text-shadow: 1px 2px #000;
-  font-size: 1.4em;
+select,
+.txtarea {
+  margin-bottom: 20px;
+}
+
+.container-2 .row {
+  display: flex;
+  flex-direction: row;
+  margin-right: 5em;
+  margin-left: 10em;
 }
 
 .container-2 h3 {
   color: rgb(245, 37, 37);
-  overflow-wrap: normal; 
-  margin-right: 7em; 
+  overflow-wrap: normal;
+  margin-right: 7em;
+  margin-bottom: 0.75em;
 }
 
 li {
@@ -81,41 +103,122 @@ li {
 }
 li:before {
   content: "✔️";
+  margin-right: 1.2em;
 }
 
+/* The Modal (background) */
 .modal {
-  background: blue; 
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
-@media only screen and (min-width: 200px) and (max-width: 840px) {
-  
- 
-  .container-1 .jumbotron { 
-    flex-direction: column; 
-  }
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 50%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
 
-  .container-1 .header-text {
-    padding-bottom: 2em; 
-    flex-basis: auto;
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
   }
-
-  .card {
-    flex-basis: 10em; 
+  to {
+    top: 0;
+    opacity: 1;
   }
+}
 
-  .container-2 {
-    min-height: auto; 
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+/* The Close Button */
+.close {
+  color: rgb(95, 114, 66);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2em;
+  background-color: #5cb85c;
+}
+
+.modal-body {
+  padding: 2em;
+}
+
+.modal-footer {
+  padding: 2em;
+  background-color: #5cb85c;
+}
+
+#callAgent {
+  display: none;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 840px) {
+  .container-1 .jumbotron {
     flex-direction: column;
-    justify-content: center; 
+  }
+
+  .header-text {
+    flex-basis: 15em;
+  }
+
+  .header-text h5 {
+    display: block;
+    width: 375px;
+    height: auto;
+  }
+
+  .container-2 .row {
+    display: inline-flex;
+    flex-direction: column;
   }
 
   .container-2 h3 {
-    font-size: 1.05em; 
     white-space: nowrap;
+    margin-left: -6em;
+    font-size: 1.6em;
   }
-  
-  .container-2 .list .car-photo{
-    justify-content: center; 
+
+  #callAgent {
+    display: block;
   }
-  
 }
