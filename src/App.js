@@ -1,12 +1,13 @@
 import React from 'react';
 import carimg from './images/cars.jpg'
-import { FiPhoneCall } from "react-icons/fi";
+
+import Form from "./Components/Form.js";
 import './App.css';
 
 
 
-
 class App extends React.Component {
+  
   state = {
     showModal: false,
     focusAfterClose: true,
@@ -21,9 +22,9 @@ class App extends React.Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = (zipcode, currentlyInsured, ageRange, e) => {
+  handleSubmit = (e, zipcode, currentlyInsured, ageRange) => {
     e.preventDefault();
-    console.log(zipcode, currentlyInsured, ageRange);
+    // conditionals for message in reusable modal
     if (currentlyInsured === "no") {
       this.setState({
         showModal: this.toggle,
@@ -41,9 +42,11 @@ class App extends React.Component {
         modalMessage: "Coming soon!"
       });
     }
+    // reset form inputs 
     this.setState({ zipcode: "", currentlyInsured: "", ageRange: "" });
   };
 
+  // toggle modal show and add event listener to close on click anywhere
   toggle = () => {
     if (!this.state.showModal) {
       // attach/remove event handler
@@ -56,29 +59,16 @@ class App extends React.Component {
     });
   };
 
-  ModalMessage = () => (
-    <div
-      id="myModal"
-      className="modal"
-    >
-      {/* <!-- Modal content --> */}
-      <div className="modal-content">
-        <div className="modal-header">
-      </div>
-        <div className="modal-body">
-        
-          <h3 style={{ textAlign: "center" }}>{this.state.modalMessage}</h3>
-        </div>
-        <div className="modal-footer">
-        </div>
-      </div>
-    </div>
-  );
+  
+
 
   render() {
-    const { zipcode, currentlyInsured, ageRange } = this.state;
+    const { zipcode, currentlyInsured, ageRange } = this.state; 
+    
     return (
       <>
+      {/* create jumbotron header with background photo, text and form  */}
+
         <div className="container-1">
           <div className="jumbotron">
             <div className="header-text">
@@ -108,92 +98,18 @@ class App extends React.Component {
                 </div>
 
                 {/* Start Form content in card here  */}
-
-                <form
-                  className="form"
-                  onSubmit={e =>
-                    this.handleSubmit(zipcode, currentlyInsured, ageRange, e)
-                  }
-                >
-                  <div className="form-group textarea">
-                    <input
-                      className="form-control textarea"
-                      onChange={this.handleChange}
-                      value={this.state.zipcode}
-                      type="text"
-                      name="zipcode"
-                      id="zipcode"
-                      placeholder="zipcode"
-                      required
-                    />
-
-                    <select
-                      className="form-control textarea"
-                      onChange={this.handleChange}
-                      value={this.state.currentlyInsured}
-                      name="currentlyInsured"
-                      id="currentlyInsured"
-                      placeholder="currently insured?"
-                      required
-                    >
-                      <option value="" disabled>
-                        Already insured?
-                      </option>
-                      <option value="yes">Yes</option>
-                      <option value="no">No</option>
-                    </select>
-
-                    <select
-                      className="form-control textarea"
-                      onChange={this.handleChange}
-                      value={this.state.ageRange}
-                      type="select"
-                      name="ageRange"
-                      id="ageRange"
-                      required
-                    >
-                      <option value="" disabled>
-                        Age Range
-                      </option>
-                      <option value="under">Under 25</option>
-                      <option value="under">25 to 34</option>
-                      <option value="over">35 to 44</option>
-                      <option value="over">45 to 55</option>
-                      <option value="over">over 55</option>
-                    </select>
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="btn btn-danger btn-lg"
-                    data-toggle="modal"
-                    data-target="#myModal"
-                    onClick={this.toggle}
-                  >
-                    <h5>Find Lower Rates</h5>
-                  </button>
-                  <div>{this.state.showModal && <this.ModalMessage />}</div>
-                  <button
-                    id="callAgent"
-                    style={{ marginTop: "20px"}}
-                    type="button"
-                    className="btn btn-info btn-lg"
-                    onClick={this.call}
-                  >
-                    <span style={{ marginRight: "25px"}}><FiPhoneCall /></span>
-                    <span style={{ marginLeft: "5px", color: "white" }}><a href="tel:555-555-5555">Talk to a Live Agent</a></span>
-                  </button>
-                  <p className="secure-text">
-                    <small>Your information is safe and secure.</small>
-                  </p>
-                </form>
-
+                <Form toggle={this.toggle} handleChange={this.handleChange} handleSubmit={e => this.handleSubmit(e, zipcode, 
+                currentlyInsured, ageRange)} modalMessage={this.state.modalMessage}  showModal={this.state.showModal} />
+                
                 {/* End form here  */}
+
               </div>
-            </div>
-          </div>
-        </div>
-        {/* Body of page  */}
+            </div> {/* end card here */}
+          </div> {/* end jumbotron here */}
+        </div> {/* end container-1 here */}
+
+        {/* container- 2 Body of page  */}
+
         <div className="container-2">
           <div className="row">
             <div className="col-6">
