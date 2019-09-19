@@ -32,7 +32,7 @@ const Form = props => {
             placeholder="currently insured?"
             required
           >
-            <option value="" disabled>
+            <option value="" disabled selected>
               Already insured?
             </option>
             <option value="yes">Yes</option>
@@ -48,7 +48,7 @@ const Form = props => {
             id="ageRange"
             required
           >
-            <option value="" disabled>
+            <option value="" disabled selected>
               Age Range
             </option>
             <option value="under">Under 25</option>
@@ -65,6 +65,7 @@ const Form = props => {
           data-toggle="modal"
           data-target="#myModal"
           onClick={props.toggle}
+          disabled={props.isDisabled}
         >
           <h5>Find Lower Rates</h5>
         </button>

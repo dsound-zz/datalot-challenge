@@ -1,6 +1,5 @@
 import React from 'react';
-import carimg from './images/cars.jpg'
-
+import carimg from './images/cars.jpg';
 import Form from "./Components/Form.js";
 import './App.css';
 
@@ -43,7 +42,6 @@ class App extends React.Component {
       });
     }
     // reset form inputs 
-    this.setState({ zipcode: "", currentlyInsured: "", ageRange: "" });
   };
 
   // toggle modal show and add event listener to close on click anywhere
@@ -55,16 +53,17 @@ class App extends React.Component {
       document.removeEventListener("click", this.toggle, false);
     }
     this.setState(prevState => {
-      return { showModal: !prevState.showModal };
+      return { showModal: !prevState.showModal, focusAfterClose: !prevState.focusAfterClose };
     });
   };
 
+  isDisabled = () => {
+    return this.state.zipcode && this.state.currentlyInsured && this.state.ageRange
+  }
+
   
-
-
   render() {
     const { zipcode, currentlyInsured, ageRange } = this.state; 
-    
     return (
       <>
       {/* create jumbotron header with background photo, text and form  */}
@@ -97,11 +96,13 @@ class App extends React.Component {
                   get quotes from top providers in your area.
                 </div>
 
-                {/* Start Form content in card here  */}
+                {/* Form Component  */}
                 <Form toggle={this.toggle} handleChange={this.handleChange} handleSubmit={e => this.handleSubmit(e, zipcode, 
-                currentlyInsured, ageRange)} modalMessage={this.state.modalMessage}  showModal={this.state.showModal} />
+                currentlyInsured, ageRange)} modalMessage={this.state.modalMessage}  showModal={this.state.showModal} 
+                isDisabled={!this.isDisabled()}
+                />
                 
-                {/* End form here  */}
+                {/* End form */}
 
               </div>
             </div> {/* end card here */}
@@ -132,7 +133,7 @@ class App extends React.Component {
               </div>
             </div>
           </div>
-        </div>
+        </div> { /* end of container-2 */ }
       </>
     );
   }
