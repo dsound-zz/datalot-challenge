@@ -4,6 +4,7 @@ import { FiPhoneCall } from "react-icons/fi";
 const phoneNumber = "555-555-5555";
 
 const Form = props => {
+    console.log(props)
     return (
       <form
         className="form"
@@ -32,7 +33,7 @@ const Form = props => {
             placeholder="currently insured?"
             required
           >
-            <option value="" disabled selected>
+            <option defaultValue="" disabled selected>
               Already insured?
             </option>
             <option value="yes">Yes</option>

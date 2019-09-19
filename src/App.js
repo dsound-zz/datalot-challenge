@@ -41,7 +41,8 @@ class App extends React.Component {
         modalMessage: "Coming soon!"
       });
     }
-    // reset form inputs 
+    // reset form inputs -- NOT WORKING!! 
+    this.setState({ zipcode: "", currentlyInsured: "", ageRange: "" })
   };
 
   // toggle modal show and add event listener to close on click anywhere
@@ -52,9 +53,10 @@ class App extends React.Component {
     } else {
       document.removeEventListener("click", this.toggle, false);
     }
-    this.setState(prevState => {
-      return { showModal: !prevState.showModal, focusAfterClose: !prevState.focusAfterClose };
-    });
+    
+    this.setState(prevState => (
+       { showModal: !prevState.showModal, focusAfterClose: !prevState.focusAfterClose}
+    ));
   };
 
   isDisabled = () => {
